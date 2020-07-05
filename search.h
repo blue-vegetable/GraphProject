@@ -6,18 +6,18 @@ typedef struct Node{    // a definition of a Node
     int value;           // its value
     struct Node * next;  //next node that connected to it
     struct Node * down;
-
 }Node;
 
-Node *nodes[Max];
-int ans[Max]={0};
-int parent[Max]={0};
-int visit[Max]={0};
-int length[Max]={0};
-int count;
+typedef struct
+{
+    int seq;
+    int dis;
+    int par;
+    Node* now;
+}Box2;
 
+void  CreateGraph(char name[20],Node* nodes[]);
+int  Dijkstra(int u,int v,PriorityQueue a,Node * nodes[],int ans[]);
+int DFS(int u,int v, Node* nodes[],int ans[]);
+void BFS(int u,int v,Node* nodes[],int ans[Max]);
 
-void BFS(int u,int v);
-void  CreateGraph(char name[20]);
-void Dijkstra(int u,int v,PriorityQueue a);
-void DFS(int u,int v);

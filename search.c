@@ -8,15 +8,21 @@ typedef struct Node{    // a definition of a Node
     int value;           // its value
     struct Node * next;  //next node that connected to it
     struct Node * down;
-
 }Node;
 
-extern Node *nodes[Max];
-extern int ans[Max]={0};
-extern int parent[Max]={0};
-extern int visit[Max]={0};
-extern int length[Max]={0};
-extern int count;
+typedef struct
+{
+    int seq;
+    int dis;
+    int par;
+    Node* now;
+}Box2;
+
+
+int visit[Max]={0};
+int parent[Max]={0};
+int length[Max]={0};
+
 
 int search(Node *nodes[],int x) // check whether a node is created or not
 {
@@ -42,7 +48,7 @@ void disp(Node* nodes[],int n)
     }
 }
 
-void  CreateGraph(char name[20])
+void  CreateGraph(char name[20],Node* nodes[])
 {
     FILE* fp1=fopen(name,"r");    //operations about files
     if(fp1==NULL)
@@ -107,8 +113,9 @@ void  CreateGraph(char name[20])
 
 
 
-void Dijkstra(int u,int v,PriorityQueue a)
+int  Dijkstra(int u,int v,PriorityQueue a,Node * nodes[],int ans[])
 {
+    int count=0;
     a=Init(Max);
     Node * pre = nodes[u];
 
@@ -160,19 +167,20 @@ void Dijkstra(int u,int v,PriorityQueue a)
             pre = pre->next;
         }
     }
-    int count=0;
+
     int m = v;
     while(parent[m]!=-1)
     {
         ans[count++] = parent[m];
         m = parent[m];
     }
+    return count;
+
 }
 
 
-void DFS(int u,int v)
+int DFS(int u,int v, Node* nodes[],int ans[])
 {
-	int visit[Max]={0};
     Node* stack[Max];
     int top = 0;
     int flag = 0;
@@ -214,7 +222,6 @@ void DFS(int u,int v)
 
         stack[++top] =  pre;
         visit[pre->seq] = 1;
-
     }
 
     for(int i=1;i<=top;i++)
@@ -223,24 +230,17 @@ void DFS(int u,int v)
     }
     if(top==0)
         puts("stack empty");
+    return top;
 }
 
-typedef struct
-{
-    int seq;
-    int dis;
-    int par;
-    Node* now;
-}Box2;
 
 
-void BFS(int u,int v)
+
+void BFS(int u,int v,Node* nodes[],int ans[Max])
 {
+    int count;
     Box2 queue[Max];
     int front=0,tail=0;
-    int visit[Max]={0};
-    int path[Max];
-    int parent[Max];
     int parent2;
 
     Box2 e;
@@ -293,7 +293,7 @@ void BFS(int u,int v)
 
     }
         int m  = v;
-        int count = 0;
+        count = 0;
         int anstemp[Max];
         while(parent[m]!=-1)
         {
