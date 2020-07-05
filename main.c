@@ -1,27 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+//#include "priorityqueue.h"
+#include "search.h"
+#include "stats.h"
 
-int main(){
-    printf("xxxx  xxx                      x \n");
-    printf("xxxxxxxxxxxxx                  xx\n");
-    printf("  xxxxxxxx                    xxxx\n");
-    printf("     xxxxxxxxxxxxxxxxxxxxxxx   x x\n");
-    printf("    xx xxx                  xxxxxx\n");
-    printf("  xxxxxx                      xx\n");
-    printf("xxxxxx                         xxx\n");
-    printf("    xx                          xx\n");
-    printf("   xx     x             x x      xx\n");
-    printf("  xx     xxx             x        xx\n");
-    printf(" xx     xxxxx           x x        xx\n");
-    printf("xx              xx                  x\n");
-    printf("x               xx                   x\n");
-    printf("x                                     x\n");
-    printf("x               xxxx                  x\n");
-    printf("x                                     x\n");
-    printf("xxx                                  x\n");
-    printf("  xxx                              xx\n");
-    printf("   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n"); 
-    
+int main()
+{
+    char name[20] = "test.txt";
+  //  CreateGraph(name);
+    printf("Create Graph succeed");
 
- 
+    int u=2,v=22446;
+    PriorityQueue a = NULL;
+    Dijkstra(u,v,a);
+
+    int i;
+    for(i=count-1;i>=0;i--)
+    {
+        printf(" %d ->",ans[i]);
+    }
+
+    printf("%d",v);
+
 }
