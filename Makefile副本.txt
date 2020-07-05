@@ -1,1 +1,0 @@
-result = search-clitheh = $(shell find ./ -name "*.h")thec = $(shell find ./ -name "*.c")sod = $(thec:%.c=%.o) $(result): $(sod)	gcc -o $(result) $(obj)%.o: %.c $(theh)	gcc -c $< -o $@clean:	rm -rf $(sod) $(result)
