@@ -174,10 +174,10 @@ int  Dijkstra(int u,int v,PriorityQueue a,Node * nodes[],int ans[])
         ans[count++] = parent[m];
         m = parent[m];
     }
+    ans [count++] = u;
     return count;
 
 }
-
 
 int DFS(int u,int v, Node* nodes[],int ans[])
 {
@@ -233,22 +233,20 @@ int DFS(int u,int v, Node* nodes[],int ans[])
     return top;
 }
 
-
-
-
-void BFS(int u,int v,Node* nodes[],int ans[Max])
+Box2 queue[Max];
+int BFS(int u,int v,Node *nodes[],int ans[])
 {
-    int count;
-    Box2 queue[Max];
+    nodes[0]=(Node*)malloc(sizeof(Node));
+    nodes[0]->seq  = 0;
+    nodes[0]->next=NULL;
     int front=0,tail=0;
     int parent2;
 
     Box2 e;
     e.seq = u;
-    e.dis = 0;
-    e.now = nodes[u];
-    e.par = -1;
+    length[u] = 0;
     parent[u] = -1;
+    visit[u] = 1;
 
     queue[tail++] = e;
     Node * pre;
@@ -257,56 +255,39 @@ void BFS(int u,int v,Node* nodes[],int ans[Max])
     {
         e = queue[front];       //dequeue
         front++;
-        printf("%d\n",e.seq);
-
-        if(e.seq==v&&e.dis==1)
-        {
-            break;
-        }
-
-        if(e.dis>1)
-        {
-            e.dis-= 1 ;
-            //e.now->value -= 1;
-            queue[tail++] = e;
-        }
-
-        if(e.dis<=1&&visit[e.seq]!=1)
-        {
-             visit[e.seq]=1;
-             parent[e.seq] = e.par;
-        }
+        visit[e.seq] = 0;
 
         pre = nodes[e.seq]->next;
         parent2 = e.seq;
-        int distance = e.dis;
         while(pre != NULL)
         {
-            e.seq = pre->seq;
-            e.dis = distance+pre->value;
-            e.now = pre;
-            e.par = parent2;
-            if(visit[e.seq]==0)
-                 queue[tail++] =e ;
+            if(length[pre->seq]>length[parent2]+pre->value||length[pre->seq]==0)
+            {
+                length[pre->seq] = length[parent2]+pre->value;
+                parent[pre->seq] = parent2;
+                if(!visit[pre->seq])
+                {
+                    e.seq = pre->seq;
+                    queue[tail++] = e;
+                    visit[e.seq] = 1;
+                }
+            }
             pre = pre->next;
         }
 
     }
         int m  = v;
-        count = 0;
-        int anstemp[Max];
-        while(parent[m]!=-1)
+
+        int count =0;
+        int temp;
+        while(m!=u)
         {
-            anstemp[count++] = parent[m];
+            ans[count++] = m;
             m = parent[m];
         }
-        anstemp[count++] = u;
-        for(int i=0;i<count;i++)
-        {
-            ans[i] = anstemp[count-1-i];
-        }
+        ans[count++] = u;
+        return count;
 }
-
 
 
 
