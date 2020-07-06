@@ -1,14 +1,12 @@
 cc = gcc
 prom = search-cli
-deps = $(shell find ./ -name "*.h")
-src = $(shell find ./ -name "*.c")
-obj = $(src:%.c=%.o) 
-
+deps = search.h stats.h priorityqueue.h
+obj = main.o search.o stats.o priorityqueue.o
 $(prom): $(obj)
-	$(cc) -o $(prom) $(obj)
-
+    $(cc) -o $(prom) $(obj)
+ 
 %.o: %.c $(deps)
-	$(cc) -c $< -o $@
-
+    $(cc) -c $< -o $@
+ 
 clean:
-	rm -rf $(obj) $(prom)
+    rm -rf $(obj) $(prom)
