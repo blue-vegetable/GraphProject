@@ -45,9 +45,13 @@ int main(int argc,char * argv[])
     char temp8[20] = "BFS";
     char temp9[20] = "Dijkstra";
     char * ans;
-    int u = argv[6][0], v = argv[8][0];
-    if(argc==8)
+    int u = atoi(argv[6]), v =atoi(argv[8]);
+	//printf("%d  %d",u,v);
+	//printf("%d",argc);
+    if(argc==9)
     {
+		//printf("%s",argv[4]);
+		//printf("%s",argv[2]);
         ans = shortestPath(u,v,argv[4],argv[2]);
     }
     puts(ans);
