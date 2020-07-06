@@ -15,8 +15,11 @@ typedef struct
     int par;
     Node* now;
 }Box2;
+
+int strcmp(char a[],char b[]);
 void  CreateGraph(char name[20],Node* nodes[]);
 int  Dijkstra(int u,int v,PriorityQueue a,Node * nodes[],int ans[]);
 int DFS(int u,int v, Node* nodes[],int ans[]);
 int BFS(int u,int v,Node* nodes[],int ans[]);
+char * shortestPath(int u, int v, char algorithm[], char name[]);
 

@@ -18,15 +18,38 @@ typedef struct
     Node* now;
 }Box2;
 
-
+Node* nodes[Max];
 int visit[Max]={0};
 int parent[Max]={0};
 int length[Max]={0};
+char FinalAns[Max];
+Node* stack[Max];
 
+
+char * strcat(char * dest, const char * src)
+{
+        char *tmp = dest;
+        while (*dest)
+        {
+            dest++;
+        }
+        while ((*dest++ = *src++) != '\0');
+        return tmp;
+} //该函数来自stting.h库文件中的一部分
 
 int search(Node *nodes[],int x) // check whether a node is created or not
 {
     return !(nodes[x]==NULL);
+}
+
+int strcmp(char a[],char b[])
+{
+    for(int i=0;a[i]==b[i];i++)
+    {
+        if(a[i]=='\0'&&b[i]=='\0')
+            return 1;
+    }
+    return 0;
 }
 
 void disp(Node* nodes[],int n)
@@ -169,19 +192,19 @@ int  Dijkstra(int u,int v,PriorityQueue a,Node * nodes[],int ans[])
     }
 
     int m = v;
+    ans[count++] = v;
     while(parent[m]!=-1)
     {
         ans[count++] = parent[m];
         m = parent[m];
     }
-    ans [count++] = u;
     return count;
 
 }
 
 int DFS(int u,int v, Node* nodes[],int ans[])
 {
-    Node* stack[Max];
+
     int top = 0;
     int flag = 0;
     stack[++top] = nodes[u];
@@ -236,9 +259,12 @@ int DFS(int u,int v, Node* nodes[],int ans[])
 Box2 queue[Max];
 int BFS(int u,int v,Node *nodes[],int ans[])
 {
-    nodes[0]=(Node*)malloc(sizeof(Node));
-    nodes[0]->seq  = 0;
-    nodes[0]->next=NULL;
+    if(nodes[0]==NULL)
+    {
+        nodes[0]=(Node*)malloc(sizeof(Node));
+        nodes[0]->seq  = 0;
+        nodes[0]->next=NULL;
+    }
     int front=0,tail=0;
     int parent2;
 
@@ -279,7 +305,6 @@ int BFS(int u,int v,Node *nodes[],int ans[])
         int m  = v;
 
         int count =0;
-        int temp;
         while(m!=u)
         {
             ans[count++] = m;
@@ -288,6 +313,68 @@ int BFS(int u,int v,Node *nodes[],int ans[])
         ans[count++] = u;
         return count;
 }
+
+
+char * shortestPath(int u, int v, char algorithm[], char name[])
+{
+    int count = 0;
+    int flag = 0;
+    int ans[Max]={0};
+    char tempn[100];
+    PriorityQueue a = NULL;
+    CreateGraph(name,nodes);
+    char temp[10] = "DFS";
+    if (strcmp(algorithm, temp) == 1)
+    {
+        count = DFS(u,v,nodes,ans);
+        flag = 1;
+    }
+    char temp2[20] ="BFS";
+    if (strcmp(algorithm, temp2) == 1)
+    {
+        count = BFS(u,v,nodes,ans);
+    }
+    char temp3[20] = "Dijkstra";
+    if (strcmp(algorithm,temp3) == 1)
+    {
+        count = Dijkstra(u,v,a,nodes,ans);
+    }
+
+    if(flag==0)
+    {
+        for(int i=count-1;i>=0;i--)
+        {
+            if(i!=0)
+            {
+                sprintf(tempn,"%d-> ",ans[i]);
+                strcat(FinalAns,tempn);
+            }
+            else
+            {
+                sprintf(tempn,"%d",ans[i]);
+                strcat(FinalAns,tempn);
+            }
+        }
+    }
+    else
+    {
+        for(int i=0;i<count;i++)
+        {
+            if(i!=count-1)
+            {
+                sprintf(tempn,"%d-> ",ans[i]);
+                strcat(FinalAns,tempn);
+            }
+            else
+            {
+                sprintf(tempn,"%d",ans[i]);
+                strcat(FinalAns,tempn);
+            }
+        }
+    }
+    return FinalAns;
+}
+
 
 
 
