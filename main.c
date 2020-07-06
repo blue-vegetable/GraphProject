@@ -13,10 +13,11 @@ int main(int argc,char * argv[])
     {
         if(strcmp(temp,argv[1])==0||strcmp(temp2,argv[1])==0)
         {
-            printf(".search-cli -g/--graph FILE_PATH -s/--stats STATS_PARAMS\n");
-            printf("STATS_PARAMS including: \n\t edges\n\t vertices\n\t freeman\n");
-            printf("by which you can get some information of the graph\n");
-            printf("./search-cli -g/--graph FILE_PATH -sp/--shortestpath SEARCH_PARAMS -u STARTING_POINT -v TARGET_POINT");
+            printf("\nyou can type .search-cli -g/--graph FILE_PATH -s/--stats STATS_PARAMS\n");
+            printf("\nSTATS_PARAMS including: \n\t edges\n\t vertices\n\t freeman\n");
+            printf("\nby which you can get some information of the graph\n\n");
+			printf("\nyou can also type ./search-cli -g/--graph FILE_PATH -sp/--shortestpath SEARCH_PARAMS -u STARTING_POINT -v TARGET_POINT\n");
+			printf("\nby which you can find the shortest path or one normal path\n\n"); 
         }
         return 0;
     }
@@ -28,16 +29,16 @@ int main(int argc,char * argv[])
     {
         if(strcmp(temp3,argv[4]))
         {
-            printf("The number of edges are %d",numberOfEdges(argv[2]));
+            printf("%d\n",numberOfEdges(argv[2]));
         }
         if(strcmp(temp4,argv[4]))
         {
-            printf("The number of vertices are %d",numberOfVertices(argv[2]));
+            printf("%d\n",numberOfVertices(argv[2]));
         }
         if(strcmp(temp5,argv[4]))
         {
             float ans = freemanNetworkCentrality(argv[2]);
-            printf("Freeman : %f\n" ,ans);
+            printf("%f\n" ,ans);
         }
         return 0;
     }

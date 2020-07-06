@@ -164,7 +164,7 @@ float freemanNetworkCentrality(char name[])
         ans += (max2-nodes2[i]->num);
         count++;
     }
-    printf("ans = %f,count =  %d",ans,count);
+    //printf("ans = %f,count =  %d",ans,count);
     ans = ans/(count-1.0)/(count-2.0);
     return ans;
 }
